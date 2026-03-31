@@ -1,0 +1,182 @@
+<!DOCTYPE html>
+<html lang="ko">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>ART FORENSICS LAB | 양자 미술품 감정 시스템</title>
+    <link rel="stylesheet" href="style.css">
+    <link href="https://fonts.googleapis.com/css2?family=Noto+Sans+KR:wght@300;400;700;900&family=Playfair+Display:wght@700;900&display=swap" rel="stylesheet">
+</head>
+<body>
+    <div class="scanline"></div>
+
+    <header>
+        <div class="header-inner">
+            <h1 class="logo">
+                <span class="logo-icon">◈</span>
+                ART FORENSICS LAB
+            </h1>
+            <p class="subtitle">Quantum-Powered Forgery Detection System</p>
+            <div class="credentials">
+                <span>Sotheby's Senior Appraiser · 40 Years</span>
+                <span class="divider">|</span>
+                <span>Google Quantum AI</span>
+                <span class="divider">|</span>
+                <span>IBM Quantum Network</span>
+            </div>
+        </div>
+    </header>
+
+    <main>
+        <!-- Upload Section -->
+        <section class="upload-section" id="uploadSection">
+            <div class="upload-box" id="dropZone">
+                <div class="upload-icon">
+                    <svg width="80" height="80" viewBox="0 0 80 80" fill="none">
+                        <circle cx="40" cy="40" r="38" stroke="currentColor" stroke-width="1.5" stroke-dasharray="6 4"/>
+                        <path d="M40 20v30M28 35l12-15 12 15" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/>
+                        <path d="M20 50v10h40V50" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/>
+                    </svg>
+                </div>
+                <h2>작품 이미지를 업로드하세요</h2>
+                <p>드래그 & 드롭 또는 클릭하여 선택</p>
+                <div class="upload-buttons">
+                    <label class="btn btn-primary" for="fileInput">
+                        📁 파일 선택
+                    </label>
+                    <button class="btn btn-secondary" id="cameraBtn">
+                        📷 카메라 촬영
+                    </button>
+                </div>
+                <input type="file" id="fileInput" accept="image/*" hidden>
+                <p class="file-hint">JPG, PNG, WEBP · 최대 20MB</p>
+            </div>
+        </section>
+
+        <!-- Camera Section -->
+        <section class="camera-section hidden" id="cameraSection">
+            <div class="camera-wrapper">
+                <video id="cameraFeed" autoplay playsinline></video>
+                <div class="camera-overlay">
+                    <div class="corner tl"></div>
+                    <div class="corner tr"></div>
+                    <div class="corner bl"></div>
+                    <div class="corner br"></div>
+                </div>
+                <div class="camera-controls">
+                    <button class="btn btn-capture" id="captureBtn">◉ 촬영</button>
+                    <button class="btn btn-secondary" id="closeCameraBtn">✕ 닫기</button>
+                </div>
+            </div>
+            <canvas id="captureCanvas" hidden></canvas>
+        </section>
+
+        <!-- Preview Section -->
+        <section class="preview-section hidden" id="previewSection">
+            <div class="preview-card">
+                <img id="previewImage" alt="업로드된 작품">
+                <div class="preview-actions">
+                    <button class="btn btn-primary btn-analyze" id="analyzeBtn">
+                        ◈ 양자 감정 시작
+                    </button>
+                    <button class="btn btn-secondary" id="resetBtn">↺ 다시 선택</button>
+                </div>
+            </div>
+        </section>
+
+        <!-- Analysis Section -->
+        <section class="analysis-section hidden" id="analysisSection">
+            <div class="analysis-container">
+                <!-- Image -->
+                <div class="analysis-image">
+                    <img id="analysisImage" alt="감정 대상 작품">
+                </div>
+
+                <!-- Progress -->
+                <div class="analysis-progress" id="analysisProgress">
+                    <h3>◈ 양자 분석 진행 중...</h3>
+                    <div class="progress-steps">
+                        <div class="step" id="step1">
+                            <div class="step-indicator"></div>
+                            <span>색채 스펙트럼 분석</span>
+                        </div>
+                        <div class="step" id="step2">
+                            <div class="step-indicator"></div>
+                            <span>붓터치 패턴 감지</span>
+                        </div>
+                        <div class="step" id="step3">
+                            <div class="step-indicator"></div>
+                            <span>안료 시대 검증</span>
+                        </div>
+                        <div class="step" id="step4">
+                            <div class="step-indicator"></div>
+                            <span>양자 특징 추출</span>
+                        </div>
+                        <div class="step" id="step5">
+                            <div class="step-indicator"></div>
+                            <span>위작 패턴 매칭</span>
+                        </div>
+                        <div class="step" id="step6">
+                            <div class="step-indicator"></div>
+                            <span>최종 판정 생성</span>
+                        </div>
+                    </div>
+                    <div class="quantum-visual">
+                        <canvas id="quantumCanvas" width="400" height="150"></canvas>
+                    </div>
+                </div>
+
+                <!-- Result -->
+                <div class="analysis-result hidden" id="analysisResult">
+                    <div class="verdict-card" id="verdictCard">
+                        <div class="verdict-badge" id="verdictBadge"></div>
+                        <h2 class="verdict-text" id="verdictText"></h2>
+                        <div class="confidence-meter">
+                            <span>신뢰도</span>
+                            <div class="meter-bar">
+                                <div class="meter-fill" id="confidenceFill"></div>
+                            </div>
+                            <span class="meter-value" id="confidenceValue"></span>
+                        </div>
+                    </div>
+
+                    <div class="report-grid">
+                        <div class="report-card">
+                            <h4>🎨 색채 분석</h4>
+                            <div class="color-palette" id="colorPalette"></div>
+                            <p id="colorAnalysis"></p>
+                        </div>
+                        <div class="report-card">
+                            <h4>🖌️ 붓터치 분석</h4>
+                            <canvas id="brushCanvas" width="300" height="150"></canvas>
+                            <p id="brushAnalysis"></p>
+                        </div>
+                        <div class="report-card">
+                            <h4>⚛️ 양자 특징 벡터</h4>
+                            <canvas id="featureCanvas" width="300" height="150"></canvas>
+                            <p id="quantumAnalysis"></p>
+                        </div>
+                        <div class="report-card">
+                            <h4>📋 감정 소견</h4>
+                            <p id="expertOpinion" class="expert-text"></p>
+                        </div>
+                    </div>
+
+                    <div class="report-footer">
+                        <p>감정일: <span id="reportDate"></span></p>
+                        <p>감정번호: <span id="reportId"></span></p>
+                        <p class="disclaimer">본 감정 결과는 AI 기반 참고용이며, 최종 판단은 전문가 감정을 권장합니다.</p>
+                        <button class="btn btn-primary" id="newAnalysisBtn">↺ 새 작품 감정</button>
+                    </div>
+                </div>
+            </div>
+        </section>
+    </main>
+
+    <footer>
+        <p>© 2026 ART FORENSICS LAB — Powered by Quantum Computing & 40 Years of Expertise</p>
+    </footer>
+
+    <script src="script.js"></script>
+</body>
+</html>
